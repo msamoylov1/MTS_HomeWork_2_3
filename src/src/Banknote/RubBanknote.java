@@ -1,0 +1,21 @@
+package Banknote;
+
+public class RubBanknote extends Banknote{
+    private static final int[] ALLOWED_NOMINAL = {50,100,200,500,1000,5000};
+
+    public RubBanknote(int nominal) {
+        super(Currency.RUB, nominal);
+        if (!validateNominal(nominal)){
+            throw new IllegalArgumentException("Ошибка! Недопустимое значение номинала " + nominal);
+        }
+    }
+
+    private boolean validateNominal(int n){
+        for (int i : ALLOWED_NOMINAL) if (i == n) return true;
+        return false;
+    }
+
+    public double convertTo(Currency target) {
+        return ExchangeRate.convert(nominal, Currency.RUB, target);
+    }
+}
